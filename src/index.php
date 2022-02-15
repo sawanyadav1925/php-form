@@ -1,60 +1,49 @@
 <?php
-if (isset($_POST['Submit'])) {
-    $units = $_POST['units'];
-    if (!empty($units)) {
-        $answer = total_amount($units);
-        echo "$answer";
-        
+$Number_1 = $_POST['num1'];
+$Number_2 = $_POST['num2'];
+$operator = $_POST['operator'];
+$result = '';
+if (is_numeric($Number_1) && is_numeric($Number_2)) {
+    switch ($operator) {
+        case "+":
+           $result = $Number_1 + $Number_2;
+            break;
+        case "-":
+           $result = $Number_1 - $Number_2;
+            break;
+        case "*":
+            $result = $Number_1 * $Number_2;
+            break;
+        case "/":
+            $result = $Number_1 / $Number_2;
     }
 }
-function total_amount($units)
-{
-    global $total_price ;
 
-    if($units <= 50)
-    {
-        $total_price = $units * 3.50;   
-    }
-    else if($units > 50 && $units <= 150)
-    {
-        $first_bill = 50 * 3.50;
-        $units = $units - 50;
-        $total_price = $first_bill + $units * 4.00;
 
-    }
-    else if($units > 150 && $units <= 250)
-    {
-        $first_bill = 50 * 3.50;
-        $sec_bill = 100 * 4.00;
-        $units = $units - 150;
-        $total_price = $first_bill + $sec_bill + $units * 5.20;
-        
-    }
-    else
-    {
-        $first_bill = 50 * 3.50;
-        $sec_bill = 100 * 4.00;
-        $third_bill= 100 * 5.20;
-        $units = $units - 250;
-        $total_price = $first_bill + $sec_bill +$third_bill +$units * 6.50;
-        
-    }
-    
-}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electricity Bill</title>
+	<title>calculator</title>
 </head>
+
 <body>
-<form action="" method="post">
-Enter units : <input type="text" name="units"><br>
-<input type="submit" name = Submit><br>
-<p><?php echo "total bill amount=".$total_price?></p>
-</form>
+    <div id="wrapper">
+	  <form action="" method="post">
+            <p>
+                Number1:&emsp;<input type="number" name="num1" id="num1"  value="<?php echo $Number_1; ?>" /> <b><b>
+            </p>
+            <p>
+                Number2:&emsp;<input type="number" name="num2" id="num2"  value="<?php echo $Number_2; ?>" /> <b><b>
+            </p>
+            <p>
+            Result:&emsp;<input readonly="readonly" name="result" value="<?php echo $result; ?>"> <b><b>
+            </p>
+            <input type="submit" name="operator" value="+" />
+            <input type="submit" name="operator" value="-" />
+            <input type="submit" name="operator" value="*" />
+            <input type="submit" name="operator" value="/" />
+	  </form>
+    </div>
 </body>
 </html>
